@@ -8,23 +8,21 @@ import {
 import type { ToastT } from "./type";
 import ToastContainer from "./ToastContainer";
 
-const ToastContext = createContext<ToastT>({
-  id: "kj87as9823-sajk",
-  cta: <button>Close</button>,
-  description: "",
-  position: "top-right",
-  title: "",
-  type: "alert",
-  onRemove: () => {},
-});
+const ToastContext = createContext<
+  ({ title, description, type, cta, position }: Omit<ToastT, "id">) => void
+>(() => {});
 
 export const useToast = () => useContext(ToastContext);
 
 export default function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<ToastT[]>([]);
 
+  function onRemove(id: string) {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }
+
   const addNotification = useCallback(
-    ({ title, description, type, cta, position }: ToastT) => {
+    ({ title, description, type, cta, position }: Omit<ToastT, "id">) => {
       const obj = {
         title,
         description,
@@ -47,7 +45,11 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
     <>
       <ToastContext.Provider value={addNotification}>
         {children}
-        <ToastContainer key="toastContainer" toasts={toasts} />
+        <ToastContainer
+          key="toastContainer"
+          toasts={toasts}
+          onRemove={onRemove}
+        />
       </ToastContext.Provider>
     </>
   );

@@ -23,7 +23,7 @@ export default function Toast({
   }
 
   return (
-    <div className="toast" data-type={type} data-position={"bottom-right"}>
+    <div className="toast" data-type={type}>
       {!!onRemove && (
         <button className="toast__close" onClick={handleRemove}>
           &times;

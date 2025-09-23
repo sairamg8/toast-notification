@@ -1,11 +1,17 @@
-import ToastProvider, { useToast } from "./toast/ToastProvider";
+import { useRef } from "react";
+import { useToast } from "./toast/ToastProvider";
 
 export default function App() {
-  const toast = useToast();
+  const createToast = useToast();
+  const id = useRef(0);
+
+  function triggerNotification() {
+    createToast({ title: `Test ${id.current++}`, position: "bottom-right" });
+  }
 
   return (
     <>
-      <button onClick={}>Show Toast</button>
+      <button onClick={triggerNotification}>Show Toast</button>
     </>
   );
 }
