@@ -1,17 +1,21 @@
 import { useRef } from "react";
-import { useToast } from "./toast/ToastProvider";
+import toastService from "./toast/ToastService";
+import ToastProvider from "./toast/ToastProvider";
 
 export default function App() {
-  const createToast = useToast();
   const id = useRef(0);
 
   function triggerNotification() {
-    createToast({ title: `Test ${id.current++}`, position: "bottom-right" });
+    toastService.sendToast({
+      title: `Test ${id.current++}`,
+      position: "bottom-right",
+    });
   }
 
   return (
     <>
       <button onClick={triggerNotification}>Show Toast</button>
+      <ToastProvider>Something else</ToastProvider>
     </>
   );
 }

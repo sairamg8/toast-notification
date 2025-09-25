@@ -21,6 +21,11 @@
   background-color: var(--danger-bg);
   padding: 2rem;
   position: relative;
+
+  transition: transform 0.18s linear;
+  @starting-style {
+    transform: translateX(100%);
+  }
 }
 
 .toast__container[data-position="top-right"] {
@@ -106,4 +111,14 @@
   border-radius: 6px;
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
+}
+
+.exit__toast {
+  animation: exitAnimation 0.18s linear forwards;
+}
+
+@keyframes exitAnimation {
+  to {
+    transform: translateX(120%);
+  }
 }

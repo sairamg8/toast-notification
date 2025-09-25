@@ -8,4 +8,5 @@ export interface ToastT {
   cta?: ReactNode;
   onRemove?: undefined | ((id: string) => void);
   position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
+  pause?: boolean;
 }
